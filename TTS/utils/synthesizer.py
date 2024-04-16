@@ -373,7 +373,10 @@ class Synthesizer(nn.Module):
         ):
             speaker_embedding = self.tts_model.speaker_manager.compute_embedding_from_clip(speaker_wav)
 
-        vocoder_device = "cpu"
+        if self.use_cuda:
+            vocoder_device = "cuda"
+        else
+            vocoder_device = "cpu"
         use_gl = self.vocoder_model is None
         if not use_gl:
             vocoder_device = next(self.vocoder_model.parameters()).device
